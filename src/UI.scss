@@ -224,16 +224,18 @@
       .info-tabs-container {
         display: flex;
         flex-direction: row;
+        flex-flow: wrap;
+        gap: 10px;
 
         .info-tab {
           display: flex;
           flex-direction: row;
-          width: 100%;
+          width: calc(50% - 5px);
 
           background-color: rgba(255, 255, 255, 0.064);
           backdrop-filter: blur(10px);
 
-          padding: 20px;
+          padding: 10px 20px;
           border: 1px solid rgba(255, 255, 255, 0.5);
           border-radius: 8px;
           justify-content: space-between;
@@ -241,37 +243,72 @@
 
           .info-subtitle {
             color: white;
-            font-size: 24px;
+            font-size: 18px;
           }
 
           .info-text {
             color: white;
-            font-size: 24px;
+            font-size: 18px;
           }
         }
       }
 
       .hotspots-tab {
-        flex: 1;
         display: flex;
         flex-direction: column;
         width: 100%;
+        gap: 10px;
 
         background-color: rgba(255, 255, 255, 0.064);
         backdrop-filter: blur(10px);
 
-        padding: 20px;
+        padding: 20px 20px;
+        padding-top: 10px;
         border: 1px solid rgba(255, 255, 255, 0.5);
         border-radius: 8px;
         align-items: start;
 
         .info-subtitle {
           color: white;
-          font-size: 24px;
+          font-size: 18px;
         }
         .hotspots-container {
+          pointer-events: all;
+          width: 100%;
+
+          display: flex;
+          flex-direction: row;
+          justify-content: start;
+          flex-wrap: wrap;
+          gap: 10px;
+
           .hotspot-container {
+            min-width: min-content;
+
             .hotspot-name {
+              font-size: 18px;
+              padding: 10px 20px;
+
+              background-color: rgba(255, 255, 255, 0.064);
+              backdrop-filter: blur(10px);
+
+              padding: 10px 20px;
+              border: 1px solid rgba(255, 255, 255, 0.5);
+              border-radius: 8px;
+
+              white-space: nowrap;
+              color: white;
+
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.164);
+                backdrop-filter: blur(10px);
+
+                padding: 10px 20px;
+                border: 1px solid rgba(255, 255, 255, 0.8);
+                border-radius: 8px;
+
+                cursor: pointer;
+              }
             }
           }
         }

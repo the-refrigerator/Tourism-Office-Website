@@ -25,7 +25,6 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
   const cloudsRef = useRef();
   const ref = useRef();
   const lightRef = useRef();
-  const temp = useRef();
   const hotspots = useRef([]);
   hotspots.current = [];
 
@@ -36,38 +35,23 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
 
   useEffect(() => {
     if (focus >= 0) {
-      /*const offset = 0;
-      const hotspot = planet.hotspots[focus];
-      const hotspotLocalPosition = new THREE.Vector3(Math.sin(((hotspot.longtitude + 90 + offset) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * planet.radius, Math.sin((hotspot.latitude * Math.PI) / 180) * planet.radius, Math.cos(((hotspot.longtitude + 90 + offset) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * planet.radius);
-      const hotspotPosition = new THREE.Vector3();
-      hotspotPosition.addVectors(hotspotLocalPosition, ref.current.position);
+      const hotspotPosition = new THREE.Vector3(0, 0, 0);
+      hotspotPosition.addVectors(hotspots.current[focus].position, ref.current.position);
+      hotspots.current[focus].getWorldPosition(hotspotPosition);
 
-      hotspotLocalPosition.normalize();
-      hotspotLocalPosition.multiplyScalar(planet.radius + 2);
+      const direction = new THREE.Vector3(0, 0, 0);
+      direction.subVectors(hotspotPosition, ref.current.position);
+      direction.normalize();
+      direction.multiplyScalar(radius + 2);
 
-      const targetPosition = new THREE.Vector3();
-      targetPosition.addVectors(hotspotLocalPosition, ref.current.position);
+      const targetPosition = new THREE.Vector3(0, 0, 0);
+      targetPosition.addVectors(direction, ref.current.position);
 
-      temp.current.position.set(hotspotPosition.x, hotspotPosition.y, hotspotPosition.z);
+      cameraTargetPosition.current = targetPosition;
 
-      cameraTargetPosition.current = targetPosition;*/
-
-      var distance = 4; // Distance from the center of the sphere
-      var latitude = planet.hotspots[focus].latitude;
-      var longitude = planet.hotspots[focus].longtitude;
-
-      // Calculate spherical coordinates
-      var phi = Math.PI / 2 - latitude;
-      var theta = longitude;
-
-      // Convert spherical coordinates to Cartesian coordinates
-      var x = distance * Math.sin(phi) * Math.cos(theta);
-      var y = distance * Math.cos(phi);
-      var z = distance * Math.sin(phi) * Math.sin(theta);
-
-      cameraTargetPosition.current = new THREE.Vector3(x, y, z);
+      console.log(targetPosition);
     }
-  }, [focus, planet, camera]);
+  }, [focus, planet, camera, radius]);
 
   const planetPosition = new THREE.Vector3();
   useFrame((frame, delta) => {
@@ -116,10 +100,6 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
 
   return (
     <mesh>
-      <mesh ref={temp} position={[50, 50, 50]}>
-        <sphereGeometry args={[0.1, 32, 32]} />
-        <meshLambertMaterial color={"green"} />
-      </mesh>
       <mesh
         position={startPosition}
         ref={ref}
@@ -177,7 +157,7 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
                       setFocus(index);
                     }
                   }}
-                  key={planet.id + " " + hotspot.longtitude + "-" + hotspot.latitude}
+                  key={planet.id + " " + hotspot.longtitude + " " + hotspot.latitude}
                   position={[Math.sin(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius, Math.sin((hotspot.latitude * Math.PI) / 180) * radius, Math.cos(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius]}
                 >
                   <sphereGeometry args={[0.1, 32, 32]} />

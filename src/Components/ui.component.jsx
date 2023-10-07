@@ -9,6 +9,15 @@ function Hotspot({ hotspot }) {
   );
 }
 
+function InfoTab({ name, text }) {
+  return (
+    <div className="info-tab">
+      <div className="info-subtitle">{name}</div>
+      <p className="info-text">{text}</p>
+    </div>
+  );
+}
+
 function UI({ planets, state, single, focus }) {
   const [showSelect, setShowSelect] = useState(false);
 
@@ -77,22 +86,21 @@ function UI({ planets, state, single, focus }) {
           <div className="wrapper">
             <div className="title">{planets[focus].name.toUpperCase()}</div>
             <div className="info-tabs-container">
-              <div className="info-tab">
-                <div className="info-subtitle">Distance</div>
-                <p className="info-text">24.4 light years</p>
-              </div>
-              <div className="info-tab">
-                <div className="info-subtitle">Speed</div>
-                <p className="info-text">20.5 km/h</p>
-              </div>
-              <div className="info-tab">
-                <div className="info-subtitle">Temperature</div>
-                <p className="info-text">-56° celsius</p>
-              </div>
+              <InfoTab name={"Distance"} text={"215 ly"} />
+              <InfoTab name={"Speed"} text={"215 km/h"} />
+              <InfoTab name={"Temperature"} text={"215 °c"} />
+              <InfoTab name={"Size"} text={"2x Earth"} />
             </div>
             <div className="hotspots-tab">
               <div className="info-subtitle">Hotspots</div>
               <div className="hotspots-container">
+                <Hotspot hotspot={{ name: "Acid Rains" }} />
+                <Hotspot hotspot={{ name: "Not Acid Rains" }} />
+                <Hotspot hotspot={{ name: "Acid Rains" }} />
+                <Hotspot hotspot={{ name: "Acid Rains" }} />
+                <Hotspot hotspot={{ name: "Acid Rains" }} />
+                <Hotspot hotspot={{ name: "Acid Rains" }} />
+                <Hotspot hotspot={{ name: "Acid Rains" }} />
                 <Hotspot hotspot={{ name: "Acid Rains" }} />
               </div>
             </div>

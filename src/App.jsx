@@ -240,6 +240,10 @@ function App() {
         {
           longtitude: 0,
           latitude: -45
+        },
+        {
+          longtitude: 0,
+          latitude: 90
         }
       ]
     },
@@ -269,10 +273,10 @@ function App() {
       id: 2,
       name: "Earth",
       textures: {
-        map: "earthmap_comp.jpeg",
-        bumpMap: "earthbump_comp.jpeg",
-        emissiveMap: "earthspec1k.jpg",
-        overlayMap: "earthCloud_comp.png"
+        map: "earthmap1k_new.jpg",
+        bumpMap: "earthbump_new.jpg",
+        emissiveMap: "specularmap_new.jpg",
+        overlayMap: "earthCloud_new.png"
       },
       radius: 2,
       state: "library",
@@ -284,6 +288,18 @@ function App() {
         {
           longtitude: 25,
           latitude: 25
+        },
+        {
+          longtitude: 0,
+          latitude: 0
+        },
+        {
+          longtitude: 0,
+          latitude: 45
+        },
+        {
+          longtitude: 0,
+          latitude: -45
         }
       ]
     },
@@ -291,10 +307,10 @@ function App() {
       id: 3,
       name: "Earth",
       textures: {
-        map: "earthmap_comp.jpeg",
-        bumpMap: "earthbump_comp.jpeg",
-        emissiveMap: "earthspec1k.jpg",
-        overlayMap: "earthCloud_comp.png"
+        map: "earthmap1k_new.jpg",
+        bumpMap: "earthbump_new.jpg",
+        emissiveMap: "specularmap_new.jpg",
+        overlayMap: "earthCloud_new.png"
       },
       radius: 2,
       state: "library",
@@ -306,6 +322,18 @@ function App() {
         {
           longtitude: 25,
           latitude: 25
+        },
+        {
+          longtitude: 0,
+          latitude: 0
+        },
+        {
+          longtitude: 0,
+          latitude: 45
+        },
+        {
+          longtitude: 0,
+          latitude: -45
         }
       ]
     },
@@ -313,54 +341,10 @@ function App() {
       id: 4,
       name: "Earth",
       textures: {
-        map: "earthmap_comp.jpeg",
-        bumpMap: "earthbump_comp.jpeg",
-        emissiveMap: "earthspec1k.jpg",
-        overlayMap: "earthCloud_comp.png"
-      },
-      radius: 2,
-      state: "library",
-      hotspots: [
-        {
-          longtitude: 35,
-          latitude: 35
-        },
-        {
-          longtitude: 25,
-          latitude: 25
-        }
-      ]
-    },
-    {
-      id: 5,
-      name: "Earth",
-      textures: {
-        map: "earthmap_comp.jpeg",
-        bumpMap: "earthbump_comp.jpeg",
-        emissiveMap: "earthspec1k.jpg",
-        overlayMap: "earthCloud_comp.png"
-      },
-      radius: 2,
-      state: "library",
-      hotspots: [
-        {
-          longtitude: 35,
-          latitude: 35
-        },
-        {
-          longtitude: 25,
-          latitude: 25
-        }
-      ]
-    },
-    {
-      id: 6,
-      name: "Earth",
-      textures: {
-        map: "earthmap_comp.jpeg",
-        bumpMap: "earthbump_comp.jpeg",
-        emissiveMap: "earthspec1k.jpg",
-        overlayMap: "earthCloud_comp.png"
+        map: "earthmap1k_new.jpg",
+        bumpMap: "earthbump_new.jpg",
+        emissiveMap: "specularmap_new.jpg",
+        overlayMap: "earthCloud_new.png"
       },
       radius: 2,
       state: "library",
@@ -374,26 +358,16 @@ function App() {
           latitude: 25
         },
         {
-          longtitude: -25,
-          latitude: -25
-        }
-      ]
-    },
-    {
-      id: 7,
-      name: "Earth",
-      textures: {
-        map: "earthmap_comp.jpeg",
-        bumpMap: "earthbump_comp.jpeg",
-        emissiveMap: "earthspec1k.jpg",
-        overlayMap: "earthCloud_comp.png"
-      },
-      radius: 2,
-      state: "library",
-      hotspots: [
+          longtitude: 0,
+          latitude: 0
+        },
         {
-          longtitude: 35,
-          latitude: 35
+          longtitude: 0,
+          latitude: 45
+        },
+        {
+          longtitude: 0,
+          latitude: -45
         }
       ]
     }
