@@ -25,6 +25,7 @@ class Planet(models.Model):
     speed = models.CharField(max_length=300)
     distance_to_closest_star = models.CharField(max_length=300)
     average_surface_temperature = models.CharField(max_length=300)
+    description = models.TextField(default="")
     color_map = models.FileField(upload_to="static", blank=False)
     bump_map = models.FileField(upload_to="static", blank=True)
     specular_map = models.FileField(upload_to="static", blank=True)
