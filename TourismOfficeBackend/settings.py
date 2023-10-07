@@ -32,6 +32,16 @@ if str(os.getenv("production")) == "True":
 else:
     DEBUG = True
 
+if not DEBUG:
+    # HTTPS Settings
+    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    CSRF_COOKIE_SECURE = True
+
+    # HSTS Settings
+    SECURE_HSTS_SECONDS = 31536000  # 1 Year
+    SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 # TODO change this
 CORS_ALLOW_HEADERS = ["*"]
