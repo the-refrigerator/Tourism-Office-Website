@@ -1,0 +1,285 @@
+.container {
+  font-family: var(--font-family);
+
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  pointer-events: none;
+
+  .logo {
+    position: relative;
+    top: 0;
+    left: 0;
+
+    padding: 10px 20px;
+
+    color: white;
+    font-size: 36px;
+    font-weight: 600;
+  }
+
+  .bottom-panel {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    max-width: 1000px;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    padding: 20px;
+
+    pointer-events: none;
+
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    .chat-input {
+      flex: 1;
+      border: none;
+      border-radius: 3px;
+      padding: 0 10px;
+
+      font-size: 16px;
+      font-weight: 400;
+
+      font-family: var(--font-family);
+      color: rgba(255, 255, 255, 0.556);
+
+      background-color: #26242672;
+      backdrop-filter: blur(0px);
+      pointer-events: all;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      background-color: #262426;
+      color: rgba(255, 255, 255, 1);
+    }
+
+    .chat-button:hover,
+    .chat-input:focus + .chat-button {
+      background-color: #262426;
+      color: rgba(255, 255, 255, 1);
+    }
+
+    .chat-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+
+      font-size: 16px;
+      font-weight: 400;
+
+      font-family: var(--font-family);
+      color: rgba(255, 255, 255, 0.556);
+
+      background-color: #26242672;
+      backdrop-filter: blur(3px);
+      pointer-events: all;
+      cursor: pointer;
+    }
+  }
+
+  .visible-library {
+    width: 100vw;
+    height: 100vh;
+
+    .scroll-buttons {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+
+      padding: 20px;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 0;
+
+      transition: all ease var(--transition-delay);
+
+      .scroll-button {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        transform: translateY(-100%);
+
+        background-color: transparent;
+        border: none;
+
+        pointer-events: all;
+
+        cursor: pointer;
+
+        .bx {
+          font-size: 72px;
+          color: rgba(255, 255, 255, 0.224);
+          padding: 0px;
+          font-weight: 600;
+
+          transition: all ease var(--transition-delay);
+        }
+
+        &:hover {
+          .bx {
+            color: white;
+            scale: 1.2;
+          }
+        }
+      }
+    }
+
+    .planet-name {
+      position: absolute;
+      top: 100px;
+      padding: 10px 20px;
+      right: 50%;
+      transform: translateX(50%);
+
+      color: white;
+      font-size: 36px;
+      font-weight: 500;
+
+      font-family: var(--font-family);
+
+      transition: all ease var(--transition-delay);
+    }
+
+    .select-planet {
+      position: absolute;
+      right: 50%;
+      transform: translate(50%, 0);
+
+      bottom: 20px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+
+      font-size: 16px;
+      font-weight: 500;
+
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &.inactive {
+      .planet-name {
+        transition: all ease var(--transition-delay);
+
+        top: -100px;
+      }
+
+      .scroll-buttons {
+        transition: all ease var(--transition-delay);
+
+        gap: 100vw;
+      }
+    }
+  }
+
+  .visible-single {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    max-width: 600px;
+
+    padding: 20px;
+
+    background-color: /*#26242672*/ transparent;
+    /*backdrop-filter: blur(5px);*/
+
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all ease var(--transition-delay);
+
+    .wrapper {
+      width: 100%;
+      height: calc(100vh - 200px);
+
+      .title {
+        font-size: 72px;
+        font-weight: 500;
+        color: white;
+      }
+
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .info-tabs-container {
+        display: flex;
+        flex-direction: row;
+
+        .info-tab {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+
+          background-color: rgba(255, 255, 255, 0.064);
+          backdrop-filter: blur(10px);
+
+          padding: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          border-radius: 8px;
+          justify-content: space-between;
+          align-items: center;
+
+          .info-subtitle {
+            color: white;
+            font-size: 24px;
+          }
+
+          .info-text {
+            color: white;
+            font-size: 24px;
+          }
+        }
+      }
+
+      .hotspots-tab {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        background-color: rgba(255, 255, 255, 0.064);
+        backdrop-filter: blur(10px);
+
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 8px;
+        align-items: start;
+
+        .info-subtitle {
+          color: white;
+          font-size: 24px;
+        }
+        .hotspots-container {
+          .hotspot-container {
+            .hotspot-name {
+            }
+          }
+        }
+      }
+    }
+
+    &.inactive {
+      right: -600px;
+    }
+  }
+}
