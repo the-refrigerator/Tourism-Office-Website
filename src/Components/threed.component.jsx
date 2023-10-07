@@ -6,7 +6,7 @@ import Planet from "./planet.component.jsx";
 import Background from "./background.component.jsx";
 import { OrbitControls } from "@react-three/drei";
 
-function Threed({ single, setSingle, focus, setFocus, planets, setPlanets }) {
+function Threed({ hotspot, setHotspot, single, setSingle, focus, setFocus, planets, setPlanets }) {
   console.log("Updating threed");
 
   const zoom = useRef();
@@ -23,7 +23,12 @@ function Threed({ single, setSingle, focus, setFocus, planets, setPlanets }) {
       }
     }
 
+    function goToLibrary() {
+      setSingle(-1);
+    }
+
     document.addEventListener("i-single", goSingle);
+    document.addEventListener("i-go-to-library", goToLibrary);
 
     const p = [...planets];
     for (var i = 0; i < p.length; i++) {
@@ -87,6 +92,7 @@ function Threed({ single, setSingle, focus, setFocus, planets, setPlanets }) {
       document.removeEventListener("i-single", goSingle);
       document.removeEventListener("i-scroll-right", iscrollright);
       document.removeEventListener("i-scroll-left", iscrollleft);
+      document.removeEventListener("i-go-to-library", goToLibrary);
     };
   }, [focus, single]);
 
@@ -103,9 +109,9 @@ function Threed({ single, setSingle, focus, setFocus, planets, setPlanets }) {
     <>
       {single >= 0 && <OrbitControls ref={orbitControls} enablePan={false} enableRotate={single >= 0} enableZoom={single >= 0} target={new THREE.Vector3(single * 10, 0, 3)} />}
       <Background />
-      <ambientLight intensity={0.2} />
+      <ambientLight intensity={1} />
       {planets.map((planet, index) => {
-        return <Planet setSingle={setSingle} key={"Planet " + planet.id} orbitControls={orbitControls} planet={planet} startPosition={[index * 10, 0, 0]} state={planet.state} />;
+        return <Planet focus={hotspot} setFocus={setHotspot} setSingle={setSingle} key={"Planet " + planet.id} orbitControls={orbitControls} planet={planet} startPosition={[index * 10, 0, 0]} state={planet.state} />;
       })}
     </>
   );

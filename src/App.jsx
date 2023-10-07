@@ -225,27 +225,39 @@ function App() {
       hotspots: [
         {
           longtitude: 35,
-          latitude: 35
+          latitude: 35,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 25,
-          latitude: 25
+          latitude: 25,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: 0
+          latitude: 0,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: 45
+          latitude: 45,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: -45
+          latitude: -45,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: 90
+          latitude: 90,
+          name: "hotspot name",
+          desc: "hotspot desc"
         }
       ]
     },
@@ -265,11 +277,15 @@ function App() {
       hotspots: [
         {
           longtitude: 35,
-          latitude: 35
+          latitude: 35,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 25,
-          latitude: 25
+          latitude: 25,
+          name: "hotspot name",
+          desc: "hotspot desc"
         }
       ]
     },
@@ -289,23 +305,33 @@ function App() {
       hotspots: [
         {
           longtitude: 35,
-          latitude: 35
+          latitude: 35,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 25,
-          latitude: 25
+          latitude: 25,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: 0
+          latitude: 0,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: 45
+          latitude: 45,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: -45
+          latitude: -45,
+          name: "hotspot name",
+          desc: "hotspot desc"
         }
       ]
     },
@@ -324,23 +350,33 @@ function App() {
       hotspots: [
         {
           longtitude: 35,
-          latitude: 35
+          latitude: 35,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 25,
-          latitude: 25
+          latitude: 25,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: 0
+          latitude: 0,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: 45
+          latitude: 45,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: -45
+          latitude: -45,
+          name: "hotspot name",
+          desc: "hotspot desc"
         }
       ]
     },
@@ -360,23 +396,33 @@ function App() {
       hotspots: [
         {
           longtitude: 35,
-          latitude: 35
+          latitude: 35,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 25,
-          latitude: 25
+          latitude: 25,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: 0
+          latitude: 0,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: 45
+          latitude: 45,
+          name: "hotspot name",
+          desc: "hotspot desc"
         },
         {
           longtitude: 0,
-          latitude: -45
+          latitude: -45,
+          name: "hotspot name",
+          desc: "hotspot desc"
         }
       ]
     }
@@ -385,6 +431,7 @@ function App() {
   const [state, setState] = useState("-library-");
   const [focus, setFocus] = useState(0);
   const [single, setSingle] = useState(-1);
+  const [hotspot, setHotspot] = useState(-1);
 
   useEffect(() => {
     if (single >= 0) setState("-single");
@@ -397,7 +444,7 @@ function App() {
         <div className="mega-container">
           <div className={single >= 0 ? "canvas-container single" : "canvas-container"}>
             <Canvas resize={{ debounce: 0 }}>
-              <Threed focus={focus} setFocus={setFocus} single={single} setSingle={setSingle} planets={planets} setPlanets={setPlanets} />
+              <Threed hotspot={hotspot} setHotspot={setHotspot} focus={focus} setFocus={setFocus} single={single} setSingle={setSingle} planets={planets} setPlanets={setPlanets} />
               {/*<SinglePlanet
             planet={{
               id: 0,
@@ -426,7 +473,7 @@ function App() {
           </div>
         </div>
 
-        <UI focus={focus} single={single} planets={planets} state={state} />
+        <UI selectedHotspot={hotspot} setSelectedHotspot={setHotspot} focus={focus} single={single} planets={planets} state={state} />
       </Suspense>
     </>
   );

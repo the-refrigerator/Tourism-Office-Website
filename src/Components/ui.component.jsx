@@ -18,10 +18,10 @@ function InfoTab({ name, text }) {
   );
 }
 
-function UI({ planets, state, single, focus }) {
+function UI({ selectedHotspot, setSelectedHotspot, planets, state, single, focus }) {
   const [showSelect, setShowSelect] = useState(false);
 
-  useEffect(() => {
+  /*useEffect(() => {
     function showSelect() {
       setShowSelect(true);
     }
@@ -30,14 +30,30 @@ function UI({ planets, state, single, focus }) {
       setShowSelect(false);
     }
 
+    function setSelectedHotspot(i) {
+      setSelectedHotspot(planets[focus].hotspots[i]);
+    }
+
     document.addEventListener("i-show-select", showSelect);
     document.addEventListener("i-hide-select", hideSelect);
+    for (var i = 0; i < planets[focus].hotspots.length; i++) {
+      const j = i;
+      document.addEventListener("i-focus-hotspot-" + focus + "-" + j, () => {
+        setSelectedHotspot(j);
+      });
+    }
 
     return () => {
       document.removeEventListener("i-show-select", showSelect);
       document.removeEventListener("i-hide-select", hideSelect);
+      for (var i = 0; i < planets[focus].hotspots.length; i++) {
+        const j = i;
+        document.removeEventListener("i-focus-hotspot-" + focus + "-" + j, () => {
+          setSelectedHotspot(j);
+        });
+      }
     };
-  }, []);
+  }, []);*/
 
   return (
     <>
@@ -45,19 +61,6 @@ function UI({ planets, state, single, focus }) {
         <h1 className="logo">
           <img className="logo-img" src="logo.svg" />
         </h1>
-
-        {/*<form className="bottom-panel">
-          <input type="text" className="chat-input" />
-          <button
-            className="chat-button"
-            onClick={(e) => {
-              e.preventDefault();
-              document.dispatchEvent(new Event("i-single"));
-            }}
-          >
-            Send
-          </button>
-          </form>*/}
 
         <div className={state.includes("-library-") ? "visible-library" : "visible-library inactive"}>
           <div className="scroll-buttons">
@@ -88,31 +91,53 @@ function UI({ planets, state, single, focus }) {
           <div className="wrapper">
             <div className="wrapper-left"></div>
             <div className="wrapper-right">
-              <div className="title">{planets[focus].name.toUpperCase()}</div>
+              <div className="title">
+                {selectedHotspot >= 0 ? planets[focus].hotspots[selectedHotspot].name : planets[focus].name.toUpperCase()}
+                <button
+                  className="back-button"
+                  onClick={() => {
+                    if (focus >= 0) {
+                      if (selectedHotspot >= 0) {
+                        setSelectedHotspot(-1);
+                      } else {
+                        document.dispatchEvent(new Event("i-go-to-library"));
+                      }
+                    }
+                  }}
+                >
+                  <img src="icons/left-arrow.svg" />
+                  Back
+                </button>
+              </div>
               <div className="planet-info">
-                <div className="desc">Discover Saturn, a celestial wonderland beckoning travelers from across the universe. Explore its iconic ring system and 60 enchanting moons. Behold the enduring Great Red Storm, a 350-year-old marvel. Saturn's grandeur and cosmic beauty await your arrival – an interstellar adventure like no other!</div>
-                <div className="info-tabs-container">
-                  <InfoTab name={"Distance"} text={"215 ly"} />
-                  <InfoTab name={"Speed"} text={"215 km/h"} />
-                  <InfoTab name={"Temperature"} text={"215 °c"} />
-                  <InfoTab name={"Size"} text={"2x Earth"} />
-                </div>
-                <div className="hotspots-tab">
-                  <div className="info-subtitle">Hotspots</div>
-                  <div className="hotspots-container">
-                    {planets[focus].hotspots.map((hotspot, index) => {
-                      return (
-                        <Hotspot
-                          onClick={() => {
-                            document.dispatchEvent(new Event("i-focus-hotspot-" + focus + "-" + index)); // document.addEventListener("i-focus-hotspot-" + focus + "-" + j
-                          }}
-                          key={"HOTSPOT UI: " + focus + " " + index}
-                          hotspot={{ name: "Acid Rains", id: index }}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
+                <div className="desc">{selectedHotspot >= 0 ? planets[focus].hotspots[selectedHotspot].desc : "Discover Saturn, a celestial wonderland beckoning travelers from across the universe. Explore its iconic ring system and 60 enchanting moons. Behold the enduring Great Red Storm, a 350-year-old marvel. Saturn's grandeur and cosmic beauty await your arrival – an interstellar adventure like no other!"}</div>
+                {selectedHotspot < 0 && (
+                  <>
+                    <div className="info-tabs-container">
+                      <InfoTab name={"Distance"} text={"215 ly"} />
+                      <InfoTab name={"Speed"} text={"215 km/h"} />
+                      <InfoTab name={"Temperature"} text={"215 °c"} />
+                      <InfoTab name={"Size"} text={"2x Earth"} />
+                    </div>
+                    <div className="hotspots-tab">
+                      <div className="info-subtitle">Hotspots</div>
+                      <div className="hotspots-container">
+                        {planets[focus].hotspots.map((hotspot, index) => {
+                          return (
+                            <Hotspot
+                              onClick={() => {
+                                //document.dispatchEvent(new Event("i-focus-hotspot-" + focus + "-" + index)); // document.addEventListener("i-focus-hotspot-" + focus + "-" + j
+                                setSelectedHotspot(index);
+                              }}
+                              key={"HOTSPOT UI: " + focus + " " + index}
+                              hotspot={{ name: "Acid Rains", id: index }}
+                            />
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

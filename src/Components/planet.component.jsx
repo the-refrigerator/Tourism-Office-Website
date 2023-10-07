@@ -5,8 +5,9 @@ import * as THREE from "three";
 import Lerp from "../utils/lerp.utils.js";
 import { LERP_SPEED } from "../Constants.js";
 import Threed from "./threed.component.jsx";
+import { getHostpotIcon } from "../utils/getHotspotsArt.utils.js";
 
-function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
+function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, setSingle }) {
   const material = useTexture({
     map: planet.textures.map,
     bumpMap: planet.textures.bumpMap,
@@ -22,7 +23,8 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
   ring.rotation = Math.PI / 2;
 
   const [show, setShow] = useState(true);
-  const [focus, setFocus] = useState(-1);
+  //const [focus, setFocus] = useState(-1);
+  const [hover, setHover] = useState(-1);
   const [camera, setCamera] = useState(null);
 
   const cloudsRef = useRef();
@@ -36,10 +38,10 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
   const [targetRadius, setTargetRadius] = useState(planet.radius);
   const [radius, setRadius] = useState(planet.radius);
 
-  const cameraTargetPosition = useRef(new THREE.Vector3());
+  const cameraTargetPosition = useRef(new THREE.Vector3(-199, 0, 0));
 
   useEffect(() => {
-    if (focus >= 0) {
+    if (focus >= 0 && hotspots.current[focus]) {
       const hotspotPosition = new THREE.Vector3(0, 0, 0);
       hotspotPosition.addVectors(hotspots.current[focus].position, ref.current.position);
       hotspots.current[focus].getWorldPosition(hotspotPosition);
@@ -55,43 +57,48 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
       cameraTargetPosition.current = targetPosition;
       setTargetZoom(80);
       setInitialPosition(camera.position);
-
-      console.log(targetPosition);
+    } else if (focus < 0 && targetZoom != 80) {
+      setTargetZoom(80);
     }
-  }, [focus, planet, camera, radius]);
+  }, [focus, planet, camera, radius, targetZoom]);
 
   const planetPosition = new THREE.Vector3();
   useFrame((frame, delta) => {
     if (camera != frame.camera) {
       setCamera(frame.camera);
     }
-    if (focus >= 0) {
+
+    const difference = new THREE.Vector3();
+    if (cameraTargetPosition.current.x != -199) {
+      difference.subVectors(frame.camera.position, cameraTargetPosition.current);
+    }
+
+    if (cameraTargetPosition.current.x != -199 && !(Math.abs(difference.x) < 0.05 && Math.abs(difference.y) < 0.05 && Math.abs(difference.z) < 0.05)) {
       frame.camera.position.lerp(cameraTargetPosition.current, delta * 2);
       frame.camera.lookAt(ref.current.position);
-
-      const difference = new THREE.Vector3();
-      difference.sub(initialPosition, cameraTargetPosition.current);
-
-      const diff2 = new THREE.Vector3();
-      diff2.sub(camera.position, cameraTargetPosition.current);
 
       if (Math.abs(camera.fov - 80) < 10 && targetZoom == 80) {
         setTargetZoom(50);
       }
 
-      console.log(diff2.length());
+      if (Math.abs(camera.fov - targetZoom) > 1) {
+        frame.camera.fov = Lerp(frame.camera.fov, targetZoom, delta * 4);
+        frame.camera.updateProjectionMatrix();
+      }
+    } else {
+      cameraTargetPosition.current.x = -199;
+    }
 
-      frame.camera.fov = Lerp(frame.camera.fov, targetZoom, delta * 4);
-      frame.camera.updateProjectionMatrix();
-
-      difference.copy(new THREE.Vector3(0, 0, 0));
-      difference.subVectors(frame.camera.position, cameraTargetPosition.current);
-      if (Math.abs(difference.x) < 0.05 && Math.abs(difference.y) < 0.05 && Math.abs(difference.z) < 0.05) {
-        setFocus(-1);
+    if (focus < 0) {
+      if (Math.abs(camera.fov - targetZoom) > 1) {
+        frame.camera.fov = Lerp(frame.camera.fov, targetZoom, delta * 4);
+        frame.camera.updateProjectionMatrix();
       }
     }
 
-    setRadius(Lerp(radius, targetRadius, delta * 10));
+    if (Math.abs(radius - targetRadius) > 0.01) {
+      setRadius(Lerp(radius, targetRadius, delta * 10));
+    }
 
     if (state.includes("-library-")) {
       setShow(true);
@@ -121,24 +128,20 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
   };
 
   useEffect(() => {
-    if (state.includes("-single-")) {
-      for (var i = 0; i < planet.hotspots.length; i++) {
-        const j = i;
-        document.addEventListener("i-focus-hotspot-" + planet.id + "-" + j, () => {
-          setFocus(j);
-        });
-      }
-    }
+    for (var i = 0; i < hotspots.current.length; i++) {
+      const hotspotPosition = new THREE.Vector3();
+      hotspots.current[i].getWorldPosition(hotspotPosition);
 
-    return () => {
-      for (var i = 0; i < planet.hotspots.length; i++) {
-        const j = i;
-        document.removeEventListener("i-focus-hotspot-" + planet.id + "-" + j, () => {
-          setFocus(j);
-        });
-      }
-    };
-  }, [focus, state]);
+      const direction = new THREE.Vector3();
+      direction.subVectors(hotspotPosition, ref.current.position);
+      direction.normalize();
+
+      const euler = new THREE.Euler();
+      euler.setFromRotationMatrix(new THREE.Matrix4().lookAt(ref.current.position, hotspotPosition, new THREE.Vector3(0, 1, 0)));
+
+      hotspots.current[i].rotation.copy(euler);
+    }
+  }, []);
 
   return (
     <mesh>
@@ -156,7 +159,6 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
         }}
         onPointerLeave={() => {
           if (state.includes("-library-") && state.includes("-focus-")) {
-            console.log("Pointer exit!");
             setTargetRadius(planet.radius);
             document.dispatchEvent(new Event("i-hide-select"));
             document.body.style.cursor = "default";
@@ -173,11 +175,11 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
         {show && (
           <>
             <mesh>
-              <sphereGeometry args={[radius, 64, 64]} />
+              <sphereGeometry args={[radius, 32, 32]} />
               <meshPhongMaterial bumpScale={1} displacementScale={0.1} roughness={0.5} {...material} />
             </mesh>
             <mesh ref={cloudsRef}>
-              <sphereGeometry args={[1.01 * radius, 64, 64]} />
+              <sphereGeometry args={[1.01 * radius, 32, 32]} />
               <meshPhongMaterial {...cloudMaterial} transparent={true} />
             </mesh>
             <mesh rotation-x={Math.PI / 2}>
@@ -190,24 +192,33 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
                   ref={addToRefs}
                   onPointerEnter={() => {
                     if (!state.includes("-library-")) {
-                      console.log("Pointer enter");
+                      document.body.style.cursor = "pointer";
+                      setHover(index);
                     }
                   }}
-                  onPointerExit={() => {
+                  onPointerLeave={() => {
                     if (!state.includes("-library-")) {
-                      console.log("Pointer exit");
+                      document.body.style.cursor = "move";
+                      setHover(-1);
                     }
                   }}
                   onClick={() => {
-                    if (!state.includes("-library-")) {
+                    if (state.includes("-single-")) {
                       setFocus(index);
                     }
                   }}
                   key={planet.id + " " + hotspot.longtitude + " " + hotspot.latitude}
                   position={[Math.sin(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius, Math.sin((hotspot.latitude * Math.PI) / 180) * radius, Math.cos(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius]}
                 >
-                  <cylinderGeometry args={[0.1, 0.1, 32]} />
-                  <meshLambertMaterial color={"red"} />
+                  <mesh rotation={[0, 0, 0]}>
+                    {/*<cylinderGeometry args={[0.1, 0.1, hover == index ? 0.2 : 0.1]} />*/}
+                    <sphereGeometry args={[0.1, 16, 16]} />
+                    <meshLambertMaterial color={new THREE.Color("#202657")} />
+                  </mesh>
+                  <mesh position={[0, 0, hover == index ? -0.11 : -0.051]}>
+                    <planeGeometry args={[0.2, 0.2]} />
+                    <meshLambertMaterial transparent={true} side={THREE.DoubleSide} map={new THREE.TextureLoader().load(getHostpotIcon("storm"))} />
+                  </mesh>
                 </mesh>
               );
             })}
