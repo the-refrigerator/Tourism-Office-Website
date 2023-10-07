@@ -14,11 +14,17 @@
     top: 0;
     left: 0;
 
-    padding: 10px 20px;
+    padding: 0;
 
-    color: white;
-    font-size: 36px;
-    font-weight: 600;
+    color: var(--text-color);
+    font-size: 72px;
+    font-weight: 800;
+
+    height: 120px;
+
+    .logo-img {
+      height: 100%;
+    }
   }
 
   .bottom-panel {
@@ -131,7 +137,7 @@
 
         &:hover {
           .bx {
-            color: white;
+            color: var(--text-color);
             scale: 1.2;
           }
         }
@@ -140,14 +146,16 @@
 
     .planet-name {
       position: absolute;
-      top: 100px;
+      bottom: 80px;
       padding: 10px 20px;
       right: 50%;
       transform: translateX(50%);
 
-      color: white;
-      font-size: 36px;
-      font-weight: 500;
+      color: var(--text-color);
+      font-size: 47px;
+      font-weight: 800;
+
+      letter-spacing: 2px;
 
       font-family: var(--font-family);
 
@@ -192,7 +200,7 @@
     top: 0;
     right: 0;
     width: 100vw;
-    max-width: 600px;
+    max-width: 700px;
 
     padding: 20px;
 
@@ -209,105 +217,158 @@
 
     .wrapper {
       width: 100%;
-      height: calc(100vh - 200px);
-
-      .title {
-        font-size: 72px;
-        font-weight: 500;
-        color: white;
-      }
-
+      /*height: calc(100vh - 47px);*/
+      height: auto;
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
 
-      .info-tabs-container {
-        display: flex;
-        flex-direction: row;
-        flex-flow: wrap;
-        gap: 10px;
-
-        .info-tab {
-          display: flex;
-          flex-direction: row;
-          width: calc(50% - 5px);
-
-          background-color: rgba(255, 255, 255, 0.064);
-          backdrop-filter: blur(10px);
-
-          padding: 10px 20px;
-          border: 1px solid rgba(255, 255, 255, 0.5);
-          border-radius: 8px;
-          justify-content: space-between;
-          align-items: center;
-
-          .info-subtitle {
-            color: white;
-            font-size: 18px;
-          }
-
-          .info-text {
-            color: white;
-            font-size: 18px;
-          }
-        }
+      .wrapper-left {
+        width: 3px;
+        height: 100%;
+        background-color: white;
       }
-
-      .hotspots-tab {
+      .wrapper-right {
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
-        width: 100%;
+        justify-content: center;
         gap: 10px;
+        padding: 0;
+        margin: 0;
 
-        background-color: rgba(255, 255, 255, 0.064);
-        backdrop-filter: blur(10px);
+        border-left: 2.75px solid var(--text-color);
+        padding-left: 20px;
 
-        padding: 20px 20px;
-        padding-top: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        border-radius: 8px;
-        align-items: start;
-
-        .info-subtitle {
-          color: white;
-          font-size: 18px;
-        }
-        .hotspots-container {
-          pointer-events: all;
-          width: 100%;
-
+        .title {
           display: flex;
           flex-direction: row;
           justify-content: start;
-          flex-wrap: wrap;
+          width: 100%;
+          font-size: 54px;
+          font-weight: 800;
+          letter-spacing: 2px;
+          color: var(--text-color);
+          padding: 0;
+          margin: 0;
+
+          margin-bottom: -15px;
+          margin-top: -15px;
+
+          &.inactive {
+            opacity: 0;
+          }
+        }
+        .planet-info {
+          display: flex;
+          flex-direction: column;
           gap: 10px;
+          justify-content: center;
+          /*height: 100%;*/
+          padding-right: 100px;
 
-          .hotspot-container {
-            min-width: min-content;
+          .desc {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 26px;
+            color: var(--text-color);
+            padding-bottom: 40px;
+          }
 
-            .hotspot-name {
-              font-size: 18px;
-              padding: 10px 20px;
+          .info-tabs-container {
+            display: flex;
+            flex-direction: row;
+            flex-flow: wrap;
+            gap: 10px;
 
-              background-color: rgba(255, 255, 255, 0.064);
+            .info-tab {
+              display: flex;
+              flex-direction: row;
+              width: calc(50% - 5px);
+
+              background-color: #14626a28;
+              /*background-color: #3a4d7b28;*/
               backdrop-filter: blur(10px);
 
               padding: 10px 20px;
-              border: 1px solid rgba(255, 255, 255, 0.5);
+
               border-radius: 8px;
+              justify-content: space-between;
+              align-items: center;
 
-              white-space: nowrap;
-              color: white;
+              .info-subtitle {
+                color: var(--text-color);
+                font-size: 18px;
+              }
 
-              &:hover {
-                background-color: rgba(255, 255, 255, 0.164);
-                backdrop-filter: blur(10px);
+              .info-text {
+                color: var(--text-color);
+                font-size: 18px;
+                font-weight: 700;
+              }
+            }
+          } /*border: 1px solid rgba(255, 255, 255, 0.5);*/
 
-                padding: 10px 20px;
-                border: 1px solid rgba(255, 255, 255, 0.8);
-                border-radius: 8px;
+          .hotspots-tab {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
 
-                cursor: pointer;
+            background-color: #14626a28;
+            backdrop-filter: blur(10px);
+
+            padding: 20px 20px;
+            padding-top: 10px;
+
+            border-radius: 8px;
+            align-items: start;
+
+            .info-subtitle {
+              color: var(--text-color);
+              font-size: 18px;
+            }
+            .hotspots-container {
+              pointer-events: all;
+              width: 100%;
+
+              display: flex;
+              flex-direction: row;
+              justify-content: start;
+              flex-wrap: wrap;
+              gap: 10px;
+
+              .hotspot-container {
+                min-width: min-content;
+
+                .hotspot-name {
+                  font-size: 18px;
+                  padding: 10px 20px;
+                  font-weight: 700;
+
+                  background-color: rgba(255, 255, 255, 0.064);
+                  backdrop-filter: blur(10px);
+
+                  padding: 10px 20px;
+
+                  border-radius: 8px;
+
+                  white-space: nowrap;
+                  color: var(--text-color);
+
+                  &:hover {
+                    background-color: rgba(255, 255, 255, 0.164);
+                    backdrop-filter: blur(10px);
+
+                    padding: 10px 20px;
+                    border: 1px solid rgba(255, 255, 255, 0.8);
+                    border-radius: 8px;
+
+                    cursor: pointer;
+                  }
+                }
               }
             }
           }
@@ -316,7 +377,7 @@
     }
 
     &.inactive {
-      right: -600px;
+      right: -700px;
     }
   }
 }

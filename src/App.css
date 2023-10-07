@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
 :root {
-  --text-color: white;
+  --text-color: #e2f3f4;
   --background-color: black;
 
   --transition-delay: 0.3s;
-  --font-family: "Rubik", sans-serif;
+  --font-family: "Montserrat", sans-serif;
 }
 
 * {
@@ -38,7 +38,7 @@
 
 .canvas-container.single {
   position: absolute;
-  width: calc(100vw + 500px);
+  width: calc(100vw + 700px);
   height: 100vh;
-  transform: translateX(-500px);
+  transform: translateX(-700px);
 }

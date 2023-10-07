@@ -216,7 +216,9 @@ function App() {
         map: "earthmap1k_new.jpg",
         bumpMap: "earthbump_new.jpg",
         emissiveMap: "specularmap_new.jpg",
-        overlayMap: "earthCloud_new.png"
+        overlayMap: "earthCloud_new.png",
+        ringMap: "1x1_transparent.png",
+        ringTransparentMap: "1x1_transparent.gif"
       },
       radius: 2,
       state: "library",
@@ -254,7 +256,9 @@ function App() {
         map: "2k_mars.jpg",
         bumpMap: "1x1_transparent.png",
         emissiveMap: "1x1_transparent.png",
-        overlayMap: "1x1_transparent.png"
+        overlayMap: "1x1_transparent.png",
+        ringMap: "1x1_transparent.png",
+        ringTransparentMap: "1x1_transparent.gif"
       },
       radius: 2,
       state: "library",
@@ -276,7 +280,9 @@ function App() {
         map: "earthmap1k_new.jpg",
         bumpMap: "earthbump_new.jpg",
         emissiveMap: "specularmap_new.jpg",
-        overlayMap: "earthCloud_new.png"
+        overlayMap: "earthCloud_new.png",
+        ringMap: "1x1_transparent.png",
+        ringTransparentMap: "1x1_transparent.gif"
       },
       radius: 2,
       state: "library",
@@ -305,12 +311,13 @@ function App() {
     },
     {
       id: 3,
-      name: "Earth",
+      name: "Saturn",
       textures: {
-        map: "earthmap1k_new.jpg",
-        bumpMap: "earthbump_new.jpg",
-        emissiveMap: "specularmap_new.jpg",
-        overlayMap: "earthCloud_new.png"
+        map: "saturnmapthumb.jpg",
+        bumpMap: "1x1_transparent.png",
+        emissiveMap: "1x1_transparent.png",
+        overlayMap: "1x1_transparent.png",
+        ringMap: "saturnring.png"
       },
       radius: 2,
       state: "library",
@@ -344,7 +351,9 @@ function App() {
         map: "earthmap1k_new.jpg",
         bumpMap: "earthbump_new.jpg",
         emissiveMap: "specularmap_new.jpg",
-        overlayMap: "earthCloud_new.png"
+        overlayMap: "earthCloud_new.png",
+        ringMap: "1x1_transparent.png",
+        ringTransparentMap: "1x1_transparent.gif"
       },
       radius: 2,
       state: "library",

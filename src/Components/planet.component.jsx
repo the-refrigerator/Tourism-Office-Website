@@ -18,6 +18,9 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
     map: planet.textures.overlayMap
   });
 
+  const [ring] = useTexture([planet.textures.ringMap]); //planet.textures.ringMap
+  ring.rotation = Math.PI / 2;
+
   const [show, setShow] = useState(true);
   const [focus, setFocus] = useState(-1);
   const [camera, setCamera] = useState(null);
@@ -92,7 +95,7 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
 
     if (state.includes("-library-")) {
       setShow(true);
-      ref.current.rotation.set(0, state.includes("-focus-") ? ref.current.rotation.y + 0.005 : 0, 0);
+      ref.current.rotation.set(0, state.includes("-focus-") ? ref.current.rotation.y + 0.005 : 0, planet.name.toUpperCase() == "SATURN" ? Math.PI / 7 : 0);
       ref.current.position.lerp(planetPosition.set(ref.current.position.x, 0, state.includes("-focus-") ? 2 : -1), LERP_SPEED);
       if (cloudsRef.current) cloudsRef.current.rotation.set(0, cloudsRef.current.rotation.y + 0.0005, 0);
       lightRef.current.intensity = Lerp(lightRef.current.intensity, state.includes("-focus-") ? 40 : 0, LERP_SPEED);
@@ -177,6 +180,10 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
               <sphereGeometry args={[1.01 * radius, 64, 64]} />
               <meshPhongMaterial {...cloudMaterial} transparent={true} />
             </mesh>
+            <mesh rotation-x={Math.PI / 2}>
+              <torusGeometry args={[3, 0.5, 2.5, 100]} />
+              <meshPhongMaterial map={ring} transparent={true} />
+            </mesh>
             {planet.hotspots.map((hotspot, index) => {
               return (
                 <mesh
@@ -199,7 +206,7 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
                   key={planet.id + " " + hotspot.longtitude + " " + hotspot.latitude}
                   position={[Math.sin(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius, Math.sin((hotspot.latitude * Math.PI) / 180) * radius, Math.cos(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius]}
                 >
-                  <sphereGeometry args={[0.1, 32, 32]} />
+                  <cylinderGeometry args={[0.1, 0.1, 32]} />
                   <meshLambertMaterial color={"red"} />
                 </mesh>
               );

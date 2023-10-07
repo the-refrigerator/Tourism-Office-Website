@@ -42,9 +42,11 @@ function UI({ planets, state, single, focus }) {
   return (
     <>
       <section className="container">
-        <h1 className="logo">ALEPH</h1>
+        <h1 className="logo">
+          <img className="logo-img" src="logo.svg" />
+        </h1>
 
-        <form className="bottom-panel">
+        {/*<form className="bottom-panel">
           <input type="text" className="chat-input" />
           <button
             className="chat-button"
@@ -55,7 +57,7 @@ function UI({ planets, state, single, focus }) {
           >
             Send
           </button>
-        </form>
+          </form>*/}
 
         <div className={state.includes("-library-") ? "visible-library" : "visible-library inactive"}>
           <div className="scroll-buttons">
@@ -84,27 +86,33 @@ function UI({ planets, state, single, focus }) {
 
         <div className={single >= 0 ? "visible-single" : "visible-single inactive"}>
           <div className="wrapper">
-            <div className="title">{planets[focus].name.toUpperCase()}</div>
-            <div className="info-tabs-container">
-              <InfoTab name={"Distance"} text={"215 ly"} />
-              <InfoTab name={"Speed"} text={"215 km/h"} />
-              <InfoTab name={"Temperature"} text={"215 °c"} />
-              <InfoTab name={"Size"} text={"2x Earth"} />
-            </div>
-            <div className="hotspots-tab">
-              <div className="info-subtitle">Hotspots</div>
-              <div className="hotspots-container">
-                {planets[focus].hotspots.map((hotspot, index) => {
-                  return (
-                    <Hotspot
-                      onClick={() => {
-                        document.dispatchEvent(new Event("i-focus-hotspot-" + focus + "-" + index)); // document.addEventListener("i-focus-hotspot-" + focus + "-" + j
-                      }}
-                      key={"HOTSPOT UI: " + focus + " " + index}
-                      hotspot={{ name: "Acid Rains", id: index }}
-                    />
-                  );
-                })}
+            <div className="wrapper-left"></div>
+            <div className="wrapper-right">
+              <div className="title">{planets[focus].name.toUpperCase()}</div>
+              <div className="planet-info">
+                <div className="desc">Discover Saturn, a celestial wonderland beckoning travelers from across the universe. Explore its iconic ring system and 60 enchanting moons. Behold the enduring Great Red Storm, a 350-year-old marvel. Saturn's grandeur and cosmic beauty await your arrival – an interstellar adventure like no other!</div>
+                <div className="info-tabs-container">
+                  <InfoTab name={"Distance"} text={"215 ly"} />
+                  <InfoTab name={"Speed"} text={"215 km/h"} />
+                  <InfoTab name={"Temperature"} text={"215 °c"} />
+                  <InfoTab name={"Size"} text={"2x Earth"} />
+                </div>
+                <div className="hotspots-tab">
+                  <div className="info-subtitle">Hotspots</div>
+                  <div className="hotspots-container">
+                    {planets[focus].hotspots.map((hotspot, index) => {
+                      return (
+                        <Hotspot
+                          onClick={() => {
+                            document.dispatchEvent(new Event("i-focus-hotspot-" + focus + "-" + index)); // document.addEventListener("i-focus-hotspot-" + focus + "-" + j
+                          }}
+                          key={"HOTSPOT UI: " + focus + " " + index}
+                          hotspot={{ name: "Acid Rains", id: index }}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
