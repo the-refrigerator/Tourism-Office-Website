@@ -1,6 +1,10 @@
 from django.db import models
 
 
+class Conversation(models.Model):
+    content = models.JSONField()
+
+
 class System(models.Model):
     title = models.CharField(max_length=100)
 
@@ -16,7 +20,7 @@ class Planet(models.Model):
 
     name = models.CharField(max_length=200, default="")
     planet_type = models.TextField(choices=PlanetTypes.choices)
-    systems = models.ManyToManyField(System, null=True, blank=True)
+    systems = models.ManyToManyField(System, blank=True)
     size = models.CharField(max_length=300)
     speed = models.CharField(max_length=300)
     distance_to_closest_star = models.CharField(max_length=300)

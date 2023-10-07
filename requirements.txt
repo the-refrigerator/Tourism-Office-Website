@@ -3,3 +3,5 @@ django
 djangorestframework
 markdown
 django-filter
+openai
+python-dotenv
