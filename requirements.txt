@@ -6,3 +6,4 @@ django-filter
 openai
 python-dotenv
 mysqlclient
+gunicorn

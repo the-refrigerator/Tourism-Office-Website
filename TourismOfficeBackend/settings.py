@@ -34,7 +34,6 @@ else:
 
 
 # TODO change this
-ALLOWED_HOSTS = ['*']
 CORS_ALLOW_HEADERS = ["*"]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_METHODS = [
@@ -106,12 +105,12 @@ if DEBUG:
 else:
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "nasa_toursim_db",
-            "USER": "nasaspaceapps2023",
-            "PASSWORD": str(os.getenv("DB_PASS")),
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": "railway",
+            "USER": "root",
+            "PASSWORD": str(os.getenv("DB_PASSWORD")),
             "HOST": str(os.getenv("DB_HOST")),
-            "PORT": "5432",
+            "PORT": "6295",
         }
     }
 
