@@ -28,6 +28,8 @@ class Planet(models.Model):
     color_map = models.FileField(upload_to="static", blank=False)
     bump_map = models.FileField(upload_to="static", blank=True)
     specular_map = models.FileField(upload_to="static", blank=True)
+    ring_map = models.FileField(
+        upload_to="static", blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
