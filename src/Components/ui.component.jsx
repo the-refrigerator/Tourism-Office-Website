@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "../UI.scss";
 
-function Hotspot({ hotspot }) {
+function Hotspot({ hotspot, onClick }) {
   return (
-    <div className="hotspot-container">
+    <div onClick={onClick} className="hotspot-container">
       <div className="hotspot-name">{hotspot.name}</div>
     </div>
   );
@@ -94,14 +94,17 @@ function UI({ planets, state, single, focus }) {
             <div className="hotspots-tab">
               <div className="info-subtitle">Hotspots</div>
               <div className="hotspots-container">
-                <Hotspot hotspot={{ name: "Acid Rains" }} />
-                <Hotspot hotspot={{ name: "Not Acid Rains" }} />
-                <Hotspot hotspot={{ name: "Acid Rains" }} />
-                <Hotspot hotspot={{ name: "Acid Rains" }} />
-                <Hotspot hotspot={{ name: "Acid Rains" }} />
-                <Hotspot hotspot={{ name: "Acid Rains" }} />
-                <Hotspot hotspot={{ name: "Acid Rains" }} />
-                <Hotspot hotspot={{ name: "Acid Rains" }} />
+                {planets[focus].hotspots.map((hotspot, index) => {
+                  return (
+                    <Hotspot
+                      onClick={() => {
+                        document.dispatchEvent(new Event("i-focus-hotspot-" + focus + "-" + index)); // document.addEventListener("i-focus-hotspot-" + focus + "-" + j
+                      }}
+                      key={"HOTSPOT UI: " + focus + " " + index}
+                      hotspot={{ name: "Acid Rains", id: index }}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

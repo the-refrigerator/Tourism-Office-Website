@@ -95,6 +95,7 @@ function Threed({ single, setSingle, focus, setFocus, planets, setPlanets }) {
     if (single >= 0) return;
     state.camera.position.lerp(cameraPosition.set(10 * focus, 0, 7), delta * 5);
     state.camera.rotation.set(Lerp(state.camera.rotation.x, 0, 0.1), Lerp(state.camera.rotation.y, 0, 0.1), Lerp(state.camera.rotation.z, 0, delta * 5));
+    state.camera.fov = 80;
     state.camera.updateProjectionMatrix();
   });
 

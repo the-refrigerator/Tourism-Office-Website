@@ -28,6 +28,8 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
   const hotspots = useRef([]);
   hotspots.current = [];
 
+  const [targetZoom, setTargetZoom] = useState(50);
+  const [initialPosition, setInitialPosition] = useState();
   const [targetRadius, setTargetRadius] = useState(planet.radius);
   const [radius, setRadius] = useState(planet.radius);
 
@@ -48,6 +50,8 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
       targetPosition.addVectors(direction, ref.current.position);
 
       cameraTargetPosition.current = targetPosition;
+      setTargetZoom(80);
+      setInitialPosition(camera.position);
 
       console.log(targetPosition);
     }
@@ -59,10 +63,25 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
       setCamera(frame.camera);
     }
     if (focus >= 0) {
-      frame.camera.position.lerp(cameraTargetPosition.current, delta * 5);
+      frame.camera.position.lerp(cameraTargetPosition.current, delta * 2);
       frame.camera.lookAt(ref.current.position);
 
       const difference = new THREE.Vector3();
+      difference.sub(initialPosition, cameraTargetPosition.current);
+
+      const diff2 = new THREE.Vector3();
+      diff2.sub(camera.position, cameraTargetPosition.current);
+
+      if (Math.abs(camera.fov - 80) < 10 && targetZoom == 80) {
+        setTargetZoom(50);
+      }
+
+      console.log(diff2.length());
+
+      frame.camera.fov = Lerp(frame.camera.fov, targetZoom, delta * 4);
+      frame.camera.updateProjectionMatrix();
+
+      difference.copy(new THREE.Vector3(0, 0, 0));
       difference.subVectors(frame.camera.position, cameraTargetPosition.current);
       if (Math.abs(difference.x) < 0.05 && Math.abs(difference.y) < 0.05 && Math.abs(difference.z) < 0.05) {
         setFocus(-1);
@@ -97,6 +116,26 @@ function Planet({ orbitControls, planet, startPosition, state, setSingle }) {
       hotspots.current.push(el);
     }
   };
+
+  useEffect(() => {
+    if (state.includes("-single-")) {
+      for (var i = 0; i < planet.hotspots.length; i++) {
+        const j = i;
+        document.addEventListener("i-focus-hotspot-" + planet.id + "-" + j, () => {
+          setFocus(j);
+        });
+      }
+    }
+
+    return () => {
+      for (var i = 0; i < planet.hotspots.length; i++) {
+        const j = i;
+        document.removeEventListener("i-focus-hotspot-" + planet.id + "-" + j, () => {
+          setFocus(j);
+        });
+      }
+    };
+  }, [focus, state]);
 
   return (
     <mesh>
