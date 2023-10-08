@@ -56,7 +56,7 @@ CORS_ALLOW_METHODS = [
     "PUT",
 ]
 
-# REFERRER_POLICY = 'no-referrer'
+REFERRER_POLICY = 'no-referrer'
 
 # Application definition
 
