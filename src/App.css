@@ -4,6 +4,8 @@
   --text-color: #e2f3f4;
   --background-color: black;
 
+  --border-radius: 20px;
+
   --transition-delay: 0.3s;
   --font-family: "Montserrat", sans-serif;
 }
@@ -41,4 +43,23 @@
   width: calc(100vw + 700px);
   height: 100vh;
   transform: translateX(-700px);
+}
+
+* {
+  scrollbar-color: #3a4d7b #0f1425;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #0f1425;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #3a4d7b;
+  border-radius: 20px;
+  border: 3px solid #0f1425;
 }

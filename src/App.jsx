@@ -1,6 +1,8 @@
 import "./App.css";
 import { Canvas } from "@react-three/fiber";
 import { Suspense, useEffect, useState } from "react";
+import { Toaster, toast } from "sonner";
+import createUrl from "./utils/createURL.utils.js";
 
 import Threed from "./Components/threed.component.jsx";
 import UI from "./Components/ui.component.jsx";
@@ -428,6 +430,7 @@ function App() {
     }
   ]);
 
+  const [query, setQuery] = useState(new URLSearchParams(window.location.search));
   const [state, setState] = useState("-library-");
   const [focus, setFocus] = useState(0);
   const [single, setSingle] = useState(-1);
@@ -437,6 +440,26 @@ function App() {
     if (single >= 0) setState("-single");
     else setState("-library-");
   }, [single]);
+
+  const queryInit = async () => {
+    if (query.get("planet")) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setFocus(parseInt(query.get("planet")));
+      setSingle(parseInt(query.get("planet")));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (query.get("hotspot")) {
+        setHotspot(parseInt(query.get("hotspot")));
+      }
+    }
+  };
+
+  useEffect(() => {
+    queryInit();
+  }, []);
+
+  useEffect(() => {
+    window.history.pushState(null, "Journey", createUrl(single, hotspot));
+  }, [single, hotspot]);
 
   return (
     <>

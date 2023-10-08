@@ -25,7 +25,7 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
   const [show, setShow] = useState(true);
   //const [focus, setFocus] = useState(-1);
   const [hover, setHover] = useState(-1);
-  const [camera, setCamera] = useState(null);
+  const [camera, setCamera] = useState();
 
   const cloudsRef = useRef();
   const ref = useRef();
@@ -41,7 +41,7 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
   const cameraTargetPosition = useRef(new THREE.Vector3(-199, 0, 0));
 
   useEffect(() => {
-    if (focus >= 0 && hotspots.current[focus]) {
+    if (focus >= 0 && hotspots.current[focus] && camera) {
       const hotspotPosition = new THREE.Vector3(0, 0, 0);
       hotspotPosition.addVectors(hotspots.current[focus].position, ref.current.position);
       hotspots.current[focus].getWorldPosition(hotspotPosition);
@@ -55,12 +55,12 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
       targetPosition.addVectors(direction, ref.current.position);
 
       cameraTargetPosition.current = targetPosition;
-      setTargetZoom(80);
+      setTargetZoom(70);
       setInitialPosition(camera.position);
     } else if (focus < 0 && targetZoom != 80) {
       setTargetZoom(80);
     }
-  }, [focus, planet, camera, radius, targetZoom]);
+  }, [focus, planet, camera, radius]);
 
   const planetPosition = new THREE.Vector3();
   useFrame((frame, delta) => {
@@ -77,11 +77,11 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
       frame.camera.position.lerp(cameraTargetPosition.current, delta * 2);
       frame.camera.lookAt(ref.current.position);
 
-      if (Math.abs(camera.fov - 80) < 10 && targetZoom == 80) {
+      if (Math.abs(frame.camera.fov - 70) < 10 && targetZoom == 70) {
         setTargetZoom(50);
       }
 
-      if (Math.abs(camera.fov - targetZoom) > 1) {
+      if (Math.abs(frame.camera.fov - targetZoom) > 1) {
         frame.camera.fov = Lerp(frame.camera.fov, targetZoom, delta * 4);
         frame.camera.updateProjectionMatrix();
       }
@@ -90,8 +90,8 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
     }
 
     if (focus < 0) {
-      if (Math.abs(camera.fov - targetZoom) > 1) {
-        frame.camera.fov = Lerp(frame.camera.fov, targetZoom, delta * 4);
+      if (Math.abs(frame.camera.fov - targetZoom) > 1) {
+        frame.camera.fov = Lerp(frame.camera.fov, targetZoom, delta * 2);
         frame.camera.updateProjectionMatrix();
       }
     }
@@ -176,7 +176,7 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
           <>
             <mesh>
               <sphereGeometry args={[radius, 32, 32]} />
-              <meshPhongMaterial bumpScale={1} displacementScale={0.1} roughness={0.5} {...material} />
+              <meshPhongMaterial bumpScale={1} displacementScale={0} roughness={0.5} {...material} />
             </mesh>
             <mesh ref={cloudsRef}>
               <sphereGeometry args={[1.01 * radius, 32, 32]} />
