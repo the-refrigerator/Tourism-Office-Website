@@ -30,6 +30,8 @@ export function getHostpotIcon(icon) {
       return "hotspots/first-landing-spot.png";
     case "hot-region":
       return "hotspots/hot-region.png";
+    case "attraction":
+      return "hotspots/attraction.png";
   }
   return "hotspots/attraction.png";
 }

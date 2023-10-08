@@ -245,7 +245,7 @@ function Planet({ setHotspotPositions, canvasRef, focus, setFocus, orbitControls
                     }}
                   >
                     <planeGeometry args={[0.5, 0.5]} />
-                    <meshLambertMaterial transparent={true} side={THREE.DoubleSide} map={new THREE.TextureLoader().load(getHostpotIcon("storm"))} />
+                    <meshLambertMaterial transparent={true} side={THREE.DoubleSide} map={new THREE.TextureLoader().load(getHostpotIcon(hotspot.hotspot_type))} />
                   </mesh>
                 </mesh>
               );

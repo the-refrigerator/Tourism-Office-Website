@@ -125,13 +125,13 @@ function Chat({ setFocus, setSingle, planets, setHotspot }) {
                       <div key={"MESSAGE: " + index} className={message.sender != "user" ? "chat-message" : "chat-message user"}>
                         {message.sender != "user" && (
                           <div className="chat-message-profile">
-                            <img src={"robot.png"} />
+                            <img src={"icons/robot.png"} />
                           </div>
                         )}
                         <div className="chat-message-text">{message.value}</div>
                         {message.sender == "user" && (
                           <div className="chat-message-profile">
-                            <img src={"user.png"} />
+                            <img src={"icons/user.png"} />
                           </div>
                         )}
                       </div>
@@ -142,16 +142,22 @@ function Chat({ setFocus, setSingle, planets, setHotspot }) {
                       <div key={"MESSAGE: " + index} className={message.sender != "user" ? "chat-link" : "chat-link user"}>
                         {message.sender != "user" && (
                           <div className="chat-message-profile">
-                            <img src={"robot.png"} />
+                            <img src={"icons/robot.png"} />
                           </div>
                         )}
                         <div className="chat-link-container">
                           <button
                             onClick={() => {
-                              setOpenChat(false);
-                              setFocus(message.id);
-                              setSingle(message.id);
-                              setHotspot(-1);
+                              const a = async () => {
+                                setOpenChat(false);
+                                setFocus(message.id);
+                                setSingle(message.id);
+
+                                await new Promise((resolve) => setTimeout(resolve, 1500));
+                                setHotspot(-1);
+                              };
+
+                              a();
                             }}
                             className="chat-link-planet"
                           >
@@ -164,10 +170,16 @@ function Chat({ setFocus, setSingle, planets, setHotspot }) {
                                   key={"HOTSPOT CHAT: " + message.id + "__" + index}
                                   className="chat-link-hotspot"
                                   onClick={() => {
-                                    setOpenChat(false);
-                                    setFocus(message.id);
-                                    setSingle(message.id);
-                                    setHotspot(index);
+                                    const a = async () => {
+                                      setOpenChat(false);
+                                      setFocus(message.id);
+                                      setSingle(message.id);
+
+                                      await new Promise((resolve) => setTimeout(resolve, 1500));
+                                      setHotspot(index);
+                                    };
+
+                                    a();
                                   }}
                                 >
                                   {hot.name}
@@ -216,8 +228,7 @@ function Chat({ setFocus, setSingle, planets, setHotspot }) {
           placeholder="Ask Rocket here..."
         />
         <button className="chat-send">
-          SEND
-          <img src="icons/right-arrow.svg" />
+          <img src="icons/send-button.png" />
         </button>
       </form>
     </div>
@@ -266,7 +277,7 @@ function UI({ setHotspot, hotspotPositions, selectedHotspot, setSelectedHotspot,
       <Toaster position="top-left" richColors />
       {planets.length > 0 && (
         <section className="container">
-          <h1 className="logo">
+          <h1 onClick={() => {}} className="logo">
             <img className="logo-img" src="logo.svg" />
           </h1>
 

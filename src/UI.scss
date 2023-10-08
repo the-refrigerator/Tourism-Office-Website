@@ -22,6 +22,8 @@
 
     height: 120px;
 
+    cursor: pointer;
+
     .logo-img {
       height: 100%;
     }
@@ -277,6 +279,7 @@
             line-height: 26px;
             color: var(--text-color);
             padding-bottom: 40px;
+            padding-top: 10px;
           }
 
           .info-tabs-container {
@@ -501,7 +504,7 @@
 
         margin: 1px;
 
-        background-color: #14626a28;
+        background-color: #14626a00;
         backdrop-filter: blur(10px);
 
         padding: 0px 20px;
@@ -511,18 +514,12 @@
         transition: all ease var(--transition-delay);
 
         img {
-          width: 14px;
+          height: 100%;
         }
 
         &:hover {
-          background-color: #14616a66;
-          backdrop-filter: blur(10px);
-
-          padding: 10px 20px;
-          outline: 1px solid rgba(255, 255, 255, 0.8);
-          border-radius: var(--border-radius);
-
           cursor: pointer;
+          scale: 1.2;
         }
       }
     }
@@ -616,10 +613,10 @@
             flex: 1;
 
             .chat-message-profile {
-              background-color: #14616abb;
+              background-color: #9ca4bcbb;
               backdrop-filter: blur(20px);
               border-radius: 50px;
-              padding: 10px;
+              padding: 0px;
               display: flex;
               justify-content: center;
               align-items: center;
@@ -627,7 +624,7 @@
               width: 60px;
 
               img {
-                width: 100px;
+                width: 100%;
               }
             }
 

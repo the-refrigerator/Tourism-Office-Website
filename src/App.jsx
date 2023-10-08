@@ -276,132 +276,6 @@ function App() {
       id: 1,
       hotspots: [
         {
-          longtitude: "226.2",
-          latitude: "18.65",
-          hotspot_type: "volcano",
-          name: "Olympus Mons volcano",
-          description: "Olympus Mons, the largest volcano in the solar system, rises majestically on the surface of Mars. This colossal geological wonder invites scientists and space enthusiasts to explore its towering peaks, vast lava plains, and mysteries of Martian geology, making it a compelling destination for those seeking the secrets of the Red Planet.",
-          popularity: "4"
-        },
-        {
-          longtitude: "3",
-          latitude: "80",
-          hotspot_type: "canyon",
-          name: "Valles Marineris",
-          description: "Discover the allure of Valles Marineris, Mars' magnificent 'Grand Canyon.' We invite you to join us on a captivating journey to explore this vast Martian wonder. Stand on the precipice of adventure, witness the rugged Martian terrain, and unlock the secrets of another world. Let us be your guide to an unforgettable experience in the cosmos.",
-          popularity: "4"
-        },
-        {
-          longtitude: "-139",
-          latitude: "6",
-          hotspot_type: "attraction",
-          name: "Medusae Fossae",
-          description: "Medusae Fossae, a vast and enigmatic Martian geological formation, beckons explorers to unravel its mysteries. Journey to this otherworldly expanse and witness the intriguing Martian landscapes, where scientists and adventurers alike seek to decode the secrets of Mars' past.",
-          popularity: "5"
-        },
-        {
-          longtitude: "-139",
-          latitude: "6",
-          hotspot_type: "dune",
-          name: "Ghost Dunes",
-          description: "Ghost dunes, haunting remnants of ancient Martian landscapes, await your exploration. Travel to Mars and uncover the enigmatic beauty of these long-buried dunes, as they whisper tales of the Red Planet's dynamic geological history and the secrets they hold.",
-          popularity: "3"
-        }
-      ],
-      name: "Mars",
-      planet_type: "Planet",
-      size: "3,389.5 km",
-      speed: "24.1 km/s",
-      distance_to_closest_star: "238.83 million kms",
-      average_surface_temperature: "-63 °C",
-      description: "Explore Mars, a captivating celestial frontier with rust-colored landscapes, ancient riverbeds, and enigmatic moons. Experience its unique atmosphere on an interplanetary journey to uncover mysteries and potential for life.",
-      color_map: "2k_mars.jpg",
-      bump_map: null,
-      specular_map: null,
-      ring_map: null,
-      radius: 2,
-      systems: [
-        {
-          id: 1,
-          title: "Solar System"
-        }
-      ]
-    },
-    {
-      id: 2,
-      hotspots: [
-        {
-          longtitude: "0",
-          latitude: "78",
-          hotspot_type: "storm",
-          name: "Hexagonal Storm System",
-          description: "Experience Saturn's unique charm beyond its rings and moons with a visit to its mesmerizing hexagonal storm system at the north pole. Witness this colossal meteorological wonder, a true celestial masterpiece that sets Saturn apart as a must-see destination for space enthusiasts.",
-          popularity: "4"
-        },
-        {
-          longtitude: "0",
-          latitude: "78",
-          hotspot_type: "attraction",
-          name: "Great White Spot",
-          description: " Discover Saturn's Great White Spot, a breathtaking meteorological phenomenon that dazzles the eyes of space enthusiasts. Join us on a cosmic journey to witness this colossal storm system, where you can behold the stunning spectacle of swirling clouds and atmospheric dynamics that make Saturn a captivating destination in our solar system.",
-          popularity: "5"
-        }
-      ],
-      name: "Saturn",
-      planet_type: "Planet",
-      size: "58,232 km",
-      speed: "9.7 km/s",
-      distance_to_closest_star: "1.42 billion km",
-      average_surface_temperature: "-140 °C",
-      description: "Saturn, the cosmic destination of unparalleled wonder, where you can explore its stunning rings, diverse moons, and the captivating beauty of the sixth planet from the Sun, embarking on an interstellar journey like no other as you discover the mysteries of the ringed giant.",
-      color_map: "saturnmapthumb.jpg",
-      bump_map: null,
-      specular_map: null,
-      ring_map: "saturnring.png",
-      radius: 2,
-      systems: [
-        {
-          id: 1,
-          title: "Solar System"
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: "Jupiter",
-      planet_type: "Planet",
-      hotspots: [
-        {
-          longtitude: "20",
-          latitude: "-22",
-          hotspot_type: "storm",
-          name: "The Great Red Storm",
-          description: "Embark on an astronomical adventure to Jupiter's Great Red Storm, a celestial spectacle of epic proportions. Witness the enduring tempest that has raged for centuries, a captivating feature that sets Jupiter apart as a destination for those seeking the wondethe grrs of our solar system.",
-          popularity: "5"
-        }
-      ],
-      size: "69,911 km",
-      speed: "13.07 km/s",
-      distance_to_closest_star: "149.49 million km",
-      average_surface_temperature: "-145℃",
-      description: " Explore the grandeur of Jupiter, a premier celestial destination. Delight in its immense size, mesmerizing cloud bands, and the legendary Great Red Spot. Discover 79 captivating moons on this extraordinary cosmic journey, unveiling the majesty of our largest solar system planet.",
-      color_map: "jupiter.jpg",
-      overlay_map: null,
-      bump_map: null,
-      specular_map: null,
-      ring_map: null,
-      radius: 2,
-      systems: [
-        {
-          id: 1,
-          title: "Solar System"
-        }
-      ]
-    },
-    {
-      id: 4,
-      hotspots: [
-        {
           longtitude: "189.8",
           latitude: "30.5",
           hotspot_type: "crater",
@@ -438,6 +312,164 @@ function App() {
       bump_map: null,
       specular_map: null,
       ring_map: null,
+      radius: 2,
+      systems: [
+        {
+          id: 1,
+          title: "Solar System"
+        }
+      ]
+    },
+    {
+      id: 2,
+      hotspots: [
+        {
+          longtitude: "189.8",
+          latitude: "30.5",
+          hotspot_type: "crater",
+          name: "Venusium",
+          description: "Welcome to Venusium, a colossal impact basin on Venus, and a testament to the forces that shape our solar system. Step into history as you explore this vast basin, with its striking concentric rings and mesmerizing geological features, offering an opportunity to witness the dramatic aftermath of a cosmic collision on a planetary scale.",
+          popularity: "3"
+        }
+      ],
+      name: "Venus",
+      planet_type: "Planet",
+      size: "6,05108 km",
+      speed: "35 km/s",
+      distance_to_closest_star: "107 million km",
+      average_surface_temperature: "467℃",
+      description: "Explore Venus, a celestial marvel with scorching atmosphere, sulfuric acid clouds, and mysterious surface. Witness its unique day-night cycle and swirling cloud cover on a cosmic journey to uncover its enchanting enigma.",
+      color_map: "venus.jpg",
+      overlay_map: null,
+      bump_map: null,
+      specular_map: null,
+      ring_map: null,
+      radius: 2,
+      systems: [
+        {
+          id: 1,
+          title: "Solar System"
+        }
+      ]
+    },
+    {
+      id: 3,
+      hotspots: [
+        {
+          longtitude: "226.2",
+          latitude: "18.65",
+          hotspot_type: "volcano",
+          name: "Olympus Mons volcano",
+          description: "Olympus Mons, the largest volcano in the solar system, rises majestically on the surface of Mars. This colossal geological wonder invites scientists and space enthusiasts to explore its towering peaks, vast lava plains, and mysteries of Martian geology, making it a compelling destination for those seeking the secrets of the Red Planet.",
+          popularity: "4"
+        },
+        {
+          longtitude: "3",
+          latitude: "80",
+          hotspot_type: "canyon",
+          name: "Valles Marineris",
+          description: "Discover the allure of Valles Marineris, Mars' magnificent 'Grand Canyon.' We invite you to join us on a captivating journey to explore this vast Martian wonder. Stand on the precipice of adventure, witness the rugged Martian terrain, and unlock the secrets of another world. Let us be your guide to an unforgettable experience in the cosmos.",
+          popularity: "4"
+        },
+        {
+          longtitude: "-139",
+          latitude: "6",
+          hotspot_type: "attraction",
+          name: "Medusae Fossae",
+          description: "Medusae Fossae, a vast and enigmatic Martian geological formation, beckons explorers to unravel its mysteries. Journey to this otherworldly expanse and witness the intriguing Martian landscapes, where scientists and adventurers alike seek to decode the secrets of Mars' past.",
+          popularity: "5"
+        },
+        {
+          longtitude: "67.3",
+          latitude: "8.7",
+          hotspot_type: "dune",
+          name: "Ghost Dunes",
+          description: "Ghost dunes, haunting remnants of ancient Martian landscapes, await your exploration. Travel to Mars and uncover the enigmatic beauty of these long-buried dunes, as they whisper tales of the Red Planet's dynamic geological history and the secrets they hold.",
+          popularity: "3"
+        }
+      ],
+      name: "Mars",
+      planet_type: "Planet",
+      size: "3,389.5 km",
+      speed: "24.1 km/s",
+      distance_to_closest_star: "238.83 million kms",
+      average_surface_temperature: "-63 °C",
+      description: "Explore Mars, a captivating celestial frontier with rust-colored landscapes, ancient riverbeds, and enigmatic moons. Experience its unique atmosphere on an interplanetary journey to uncover mysteries and potential for life.",
+      color_map: "2k_mars.jpg",
+      bump_map: null,
+      specular_map: null,
+      ring_map: null,
+      radius: 2,
+      systems: [
+        {
+          id: 1,
+          title: "Solar System"
+        }
+      ]
+    },
+    {
+      id: 4,
+      name: "Jupiter",
+      planet_type: "Planet",
+      hotspots: [
+        {
+          longtitude: "20",
+          latitude: "-22",
+          hotspot_type: "storm",
+          name: "The Great Red Storm",
+          description: "Embark on an astronomical adventure to Jupiter's Great Red Storm, a celestial spectacle of epic proportions. Witness the enduring tempest that has raged for centuries, a captivating feature that sets Jupiter apart as a destination for those seeking the wondethe grrs of our solar system.",
+          popularity: "5"
+        }
+      ],
+      size: "69,911 km",
+      speed: "13.07 km/s",
+      distance_to_closest_star: "149.49 million km",
+      average_surface_temperature: "-145℃",
+      description: " Explore the grandeur of Jupiter, a premier celestial destination. Delight in its immense size, mesmerizing cloud bands, and the legendary Great Red Spot. Discover 79 captivating moons on this extraordinary cosmic journey, unveiling the majesty of our largest solar system planet.",
+      color_map: "jupiter.jpg",
+      overlay_map: null,
+      bump_map: null,
+      specular_map: null,
+      ring_map: null,
+      radius: 2,
+      systems: [
+        {
+          id: 1,
+          title: "Solar System"
+        }
+      ]
+    },
+    {
+      id: 5,
+      hotspots: [
+        {
+          longtitude: "0",
+          latitude: "78",
+          hotspot_type: "storm",
+          name: "Hexagonal Storm System",
+          description: "Experience Saturn's unique charm beyond its rings and moons with a visit to its mesmerizing hexagonal storm system at the north pole. Witness this colossal meteorological wonder, a true celestial masterpiece that sets Saturn apart as a must-see destination for space enthusiasts.",
+          popularity: "4"
+        },
+        {
+          longtitude: "-12",
+          latitude: "20",
+          hotspot_type: "attraction",
+          name: "Great White Spot",
+          description: " Discover Saturn's Great White Spot, a breathtaking meteorological phenomenon that dazzles the eyes of space enthusiasts. Join us on a cosmic journey to witness this colossal storm system, where you can behold the stunning spectacle of swirling clouds and atmospheric dynamics that make Saturn a captivating destination in our solar system.",
+          popularity: "5"
+        }
+      ],
+      name: "Saturn",
+      planet_type: "Planet",
+      size: "58,232 km",
+      speed: "9.7 km/s",
+      distance_to_closest_star: "1.42 billion km",
+      average_surface_temperature: "-140 °C",
+      description: "Saturn, the cosmic destination of unparalleled wonder, where you can explore its stunning rings, diverse moons, and the captivating beauty of the sixth planet from the Sun, embarking on an interstellar journey like no other as you discover the mysteries of the ringed giant.",
+      color_map: "saturnmapthumb.jpg",
+      bump_map: null,
+      specular_map: null,
+      ring_map: "saturnring.png",
       radius: 2,
       systems: [
         {
@@ -589,7 +621,7 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<Spinner />}>
+      <Suspense>
         <div className="mega-container">
           <div className={single >= 0 ? "canvas-container single" : "canvas-container"}>
             <Canvas ref={canvasRef} resize={{ debounce: 0 }}>
