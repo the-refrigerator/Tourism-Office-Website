@@ -56,6 +56,8 @@ CORS_ALLOW_METHODS = [
     "PUT",
 ]
 
+REFERRER_POLICY = 'no-referrer'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -75,12 +77,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'django_http_referrer_policy.middleware.ReferrerPolicyMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
