@@ -9,3 +9,4 @@ mysqlclient
 gunicorn
 whitenoise
 Brotli
+django-http-referrer-policy
