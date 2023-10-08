@@ -76,7 +76,7 @@ class GPT(APIView):
                         },
                     ],
                     temperature=0.8,
-                    max_tokens=150,
+                    max_tokens=int(os.getenv("TOKENS")),
                     top_p=1,
                     frequency_penalty=0,
                     presence_penalty=0
@@ -107,7 +107,7 @@ class GPT(APIView):
                         "content": f"""{request.data['message']}"""
                     }],
                 temperature=0.8,
-                max_tokens=150,
+                max_tokens=75,
                 top_p=1,
                 frequency_penalty=0,
                 presence_penalty=0
