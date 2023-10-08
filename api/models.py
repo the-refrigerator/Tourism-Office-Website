@@ -31,6 +31,8 @@ class Planet(models.Model):
     specular_map = models.FileField(upload_to="static", blank=True)
     ring_map = models.FileField(
         upload_to="static", blank=True, null=True, default=None)
+    overlay_map = models.FileField(
+        upload_to="static", blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
