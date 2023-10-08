@@ -6,7 +6,7 @@ import Planet from "./planet.component.jsx";
 import Background from "./background.component.jsx";
 import { OrbitControls } from "@react-three/drei";
 
-function Threed({ hotspot, setHotspot, single, setSingle, focus, setFocus, planets, setPlanets }) {
+function Threed({ setHotspotPositions, canvasRef, hotspot, setHotspot, single, setSingle, focus, setFocus, planets, setPlanets }) {
   console.log("Updating threed");
 
   const zoom = useRef();
@@ -111,7 +111,7 @@ function Threed({ hotspot, setHotspot, single, setSingle, focus, setFocus, plane
       <Background />
       <ambientLight intensity={1} />
       {planets.map((planet, index) => {
-        return <Planet focus={hotspot} setFocus={setHotspot} setSingle={setSingle} key={"Planet " + planet.id} orbitControls={orbitControls} planet={planet} startPosition={[index * 10, 0, 0]} state={planet.state} />;
+        return <Planet setHotspotPositions={setHotspotPositions} canvasRef={canvasRef} focus={hotspot} setFocus={setHotspot} setSingle={setSingle} key={"Planet " + planet.id} orbitControls={orbitControls} planet={planet} startPosition={[index * 10, 0, 0]} state={planet.state} />;
       })}
     </>
   );

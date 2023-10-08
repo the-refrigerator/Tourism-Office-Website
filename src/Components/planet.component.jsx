@@ -7,19 +7,16 @@ import { LERP_SPEED } from "../Constants.js";
 import Threed from "./threed.component.jsx";
 import { getHostpotIcon } from "../utils/getHotspotsArt.utils.js";
 
-function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, setSingle }) {
+function Planet({ setHotspotPositions, canvasRef, focus, setFocus, orbitControls, planet, startPosition, state, setSingle }) {
   const material = useTexture({
-    map: planet.textures.map,
-    bumpMap: planet.textures.bumpMap,
-    displacementMap: planet.textures.bumpMap,
-    emissiveMap: planet.textures.emissiveMap
+    map: planet.color_map ? planet.color_map : "1x1_transparent.png"
   });
 
   const cloudMaterial = useTexture({
-    map: planet.textures.overlayMap
+    map: planet.overlay_map ? planet.overlay_map : "1x1_transparent.png"
   });
 
-  const [ring] = useTexture([planet.textures.ringMap]); //planet.textures.ringMap
+  const [ring] = useTexture([planet.ring_map ? planet.ring_map : "1x1_transparent.png"]); //planet.textures.ringMap
   ring.rotation = Math.PI / 2;
 
   const [show, setShow] = useState(true);
@@ -34,11 +31,22 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
   hotspots.current = [];
 
   const [targetZoom, setTargetZoom] = useState(50);
-  const [initialPosition, setInitialPosition] = useState();
   const [targetRadius, setTargetRadius] = useState(planet.radius);
   const [radius, setRadius] = useState(planet.radius);
 
   const cameraTargetPosition = useRef(new THREE.Vector3(-199, 0, 0));
+
+  function convertWorldToScreenPoint(worldPosition, camera) {
+    const worldVector = new THREE.Vector3();
+    worldVector.copy(worldPosition);
+
+    worldVector.project(camera);
+
+    const x = ((worldVector.x + 1) * canvasRef.current.clientWidth) / 2;
+    const y = ((-worldVector.y + 1) * canvasRef.current.clientHeight) / 2;
+
+    return { x: x, y: y };
+  }
 
   useEffect(() => {
     if (focus >= 0 && hotspots.current[focus] && camera) {
@@ -56,7 +64,6 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
 
       cameraTargetPosition.current = targetPosition;
       setTargetZoom(70);
-      setInitialPosition(camera.position);
     } else if (focus < 0 && targetZoom != 80) {
       setTargetZoom(80);
     }
@@ -100,24 +107,40 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
       setRadius(Lerp(radius, targetRadius, delta * 10));
     }
 
-    if (state.includes("-library-")) {
-      setShow(true);
-      ref.current.rotation.set(0, state.includes("-focus-") ? ref.current.rotation.y + 0.005 : 0, planet.name.toUpperCase() == "SATURN" ? Math.PI / 7 : 0);
-      ref.current.position.lerp(planetPosition.set(ref.current.position.x, 0, state.includes("-focus-") ? 2 : -1), LERP_SPEED);
-      if (cloudsRef.current) cloudsRef.current.rotation.set(0, cloudsRef.current.rotation.y + 0.0005, 0);
-      lightRef.current.intensity = Lerp(lightRef.current.intensity, state.includes("-focus-") ? 40 : 0, LERP_SPEED);
-    } else if (state.includes("-single-")) {
-      setShow(true);
-      setTargetRadius(planet.radius);
-      if (cloudsRef.current) cloudsRef.current.rotation.set(0, cloudsRef.current.rotation.y + 0.0005, 0);
-      ref.current.position.lerp(planetPosition.set(ref.current.position.x, ref.current.position.y, 3), LERP_SPEED);
-    } else if (state.includes("-off-") && show) {
-      if (Math.abs(ref.current.position.y - 15) < 0.1) {
-        setShow(false);
-        lightRef.intensity = 0;
-      } else {
-        ref.current.position.lerp(planetPosition.set(ref.current.position.x, 15, ref.current.position.z), LERP_SPEED);
+    if (state) {
+      if (state.includes("-library-")) {
+        setShow(true);
+        ref.current.rotation.set(0, state.includes("-focus-") ? ref.current.rotation.y + 0.005 : 0, planet.name.toUpperCase() == "SATURN" ? Math.PI / 7 : 0);
+        ref.current.position.lerp(planetPosition.set(ref.current.position.x, 0, state.includes("-focus-") ? 2 : -1), LERP_SPEED);
+        if (cloudsRef.current) cloudsRef.current.rotation.set(0, cloudsRef.current.rotation.y + 0.0005, 0);
+        lightRef.current.intensity = Lerp(lightRef.current.intensity, state.includes("-focus-") ? 40 : 0, LERP_SPEED);
+      } else if (state.includes("-single-")) {
+        setShow(true);
+        setTargetRadius(planet.radius);
+        if (cloudsRef.current) cloudsRef.current.rotation.set(0, cloudsRef.current.rotation.y + 0.0005, 0);
+        ref.current.position.lerp(planetPosition.set(ref.current.position.x, ref.current.position.y, 3), LERP_SPEED);
+      } else if (state.includes("-off-") && show) {
+        if (Math.abs(ref.current.position.y - 15) < 0.1) {
+          setShow(false);
+          lightRef.intensity = 0;
+        } else {
+          ref.current.position.lerp(planetPosition.set(ref.current.position.x, 15, ref.current.position.z), LERP_SPEED);
+        }
       }
+    }
+
+    for (var i = 0; i < hotspots.current.length; i++) {
+      const hotspotPosition = new THREE.Vector3();
+      hotspots.current[i].getWorldPosition(hotspotPosition);
+
+      const direction = new THREE.Vector3();
+      direction.subVectors(hotspotPosition, ref.current.position);
+      direction.normalize();
+
+      const euler = new THREE.Euler();
+      euler.setFromRotationMatrix(new THREE.Matrix4().lookAt(hotspotPosition, ref.current.position, new THREE.Vector3(0, 1, 0)));
+
+      hotspots.current[i].rotation.copy(euler);
     }
   });
 
@@ -128,6 +151,7 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
   };
 
   useEffect(() => {
+    //const hotspotPositions = [];
     for (var i = 0; i < hotspots.current.length; i++) {
       const hotspotPosition = new THREE.Vector3();
       hotspots.current[i].getWorldPosition(hotspotPosition);
@@ -137,11 +161,16 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
       direction.normalize();
 
       const euler = new THREE.Euler();
-      euler.setFromRotationMatrix(new THREE.Matrix4().lookAt(ref.current.position, hotspotPosition, new THREE.Vector3(0, 1, 0)));
+      euler.setFromRotationMatrix(new THREE.Matrix4().lookAt(hotspotPosition, ref.current.position, new THREE.Vector3(0, 1, 0)));
 
       hotspots.current[i].rotation.copy(euler);
+
+      // setHotspotPositions
+      //if (camera) hotspotPositions.push(convertWorldToScreenPoint(hotspotPosition, camera));
     }
-  }, []);
+
+    //setHotspotPositions(hotspotPositions);
+  }, [state]);
 
   return (
     <mesh>
@@ -188,35 +217,34 @@ function Planet({ focus, setFocus, orbitControls, planet, startPosition, state, 
             </mesh>
             {planet.hotspots.map((hotspot, index) => {
               return (
-                <mesh
-                  ref={addToRefs}
-                  onPointerEnter={() => {
-                    if (!state.includes("-library-")) {
-                      document.body.style.cursor = "pointer";
-                      setHover(index);
-                    }
-                  }}
-                  onPointerLeave={() => {
-                    if (!state.includes("-library-")) {
-                      document.body.style.cursor = "move";
-                      setHover(-1);
-                    }
-                  }}
-                  onClick={() => {
-                    if (state.includes("-single-")) {
-                      setFocus(index);
-                    }
-                  }}
-                  key={planet.id + " " + hotspot.longtitude + " " + hotspot.latitude}
-                  position={[Math.sin(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius, Math.sin((hotspot.latitude * Math.PI) / 180) * radius, Math.cos(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius]}
-                >
-                  <mesh rotation={[0, 0, 0]}>
+                <mesh ref={addToRefs} key={planet.id + " " + hotspot.longtitude + " " + hotspot.latitude} position={[Math.sin(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius, Math.sin((hotspot.latitude * Math.PI) / 180) * radius, Math.cos(((hotspot.longtitude + 90) * Math.PI) / 180) * Math.cos((hotspot.latitude * Math.PI) / 180) * radius]}>
+                  <mesh>
                     {/*<cylinderGeometry args={[0.1, 0.1, hover == index ? 0.2 : 0.1]} />*/}
                     <sphereGeometry args={[0.1, 16, 16]} />
                     <meshLambertMaterial color={new THREE.Color("#202657")} />
                   </mesh>
-                  <mesh position={[0, 0, hover == index ? -0.11 : -0.051]}>
-                    <planeGeometry args={[0.2, 0.2]} />
+                  {/*<mesh position={[0, 0, hover == index ? -0.11 : -0.051]}>*/}
+                  <mesh
+                    position={[0, 0, 0.11]}
+                    onPointerEnter={() => {
+                      if (!state.includes("-library-")) {
+                        document.body.style.cursor = "pointer";
+                        setHover(index);
+                      }
+                    }}
+                    onPointerLeave={() => {
+                      if (!state.includes("-library-")) {
+                        document.body.style.cursor = "move";
+                        setHover(-1);
+                      }
+                    }}
+                    onClick={() => {
+                      if (state.includes("-single-")) {
+                        setFocus(index);
+                      }
+                    }}
+                  >
+                    <planeGeometry args={[0.5, 0.5]} />
                     <meshLambertMaterial transparent={true} side={THREE.DoubleSide} map={new THREE.TextureLoader().load(getHostpotIcon("storm"))} />
                   </mesh>
                 </mesh>
