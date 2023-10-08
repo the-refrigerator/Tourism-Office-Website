@@ -256,7 +256,7 @@ function App() {
       planet_type: "Planet",
       size: "6,371 km",
       speed: "29.78 km/s",
-      distance_to_closest_star: "149.49 million km",
+      distance_to_closest_star: "149.49M km",
       average_surface_temperature: "15℃",
       description: "Discover Earth, a breathtaking oasis in the cosmos, where nature's wonders, diverse cultures, and celestial phenomena converge. Explore lush forests, majestic mountains, and vibrant cultures. Witness the enchanting dance of the Northern and Southern Lights, a celestial spectacle. Embark on an extraordinary journey to explore the world's wonders and cherish our precious home.",
       color_map: "earth.jpg",
@@ -304,7 +304,7 @@ function App() {
       planet_type: "Planet",
       size: "2,439.7 km",
       speed: "47 km/s",
-      distance_to_closest_star: "57.9 million km",
+      distance_to_closest_star: "57.9M km",
       average_surface_temperature: "-167℃",
       description: "Visit Mercury, a scorching celestial wonder for the intrepid. Explore its extreme temperatures, rugged landscapes, and mysteries of its iron core on a cosmic journey to uncover the planet's dynamic and resilient nature.",
       color_map: "mercury.webp",
@@ -324,19 +324,27 @@ function App() {
       id: 2,
       hotspots: [
         {
-          longtitude: "189.8",
-          latitude: "30.5",
-          hotspot_type: "crater",
-          name: "Venusium",
-          description: "Welcome to Venusium, a colossal impact basin on Venus, and a testament to the forces that shape our solar system. Step into history as you explore this vast basin, with its striking concentric rings and mesmerizing geological features, offering an opportunity to witness the dramatic aftermath of a cosmic collision on a planetary scale.",
+          longtitude: "195",
+          latitude: "0.9",
+          hotspot_type: "volcano",
+          name: "Maa Mons",
+          description: "Maat Mons, an enigmatic shield volcano on Venus, offers an otherworldly adventure for intrepid explorers. Ascend the towering slopes of this ancient volcano, one of the tallest peaks in the solar system, and witness the breathtaking vistas of Venus' fiery landscape, a truly unique experience in the cosmos.",
           popularity: "3"
+        },
+        {
+          longtitude: "188.3",
+          latitude: "8.5",
+          hotspot_type: "mountain",
+          name: "Sapas Mons",
+          description: "Sapas Mons, a captivating shield volcano on Venus, beckons adventurers to explore its mystique. Ascend the monumental slopes of this dormant giant and immerse yourself in the awe-inspiring vistas of Venus' volcanic terrain, uncovering the geological wonders of our neighboring world.",
+          popularity: "3.5"
         }
       ],
       name: "Venus",
       planet_type: "Planet",
       size: "6,05108 km",
       speed: "35 km/s",
-      distance_to_closest_star: "107 million km",
+      distance_to_closest_star: "107M km",
       average_surface_temperature: "467℃",
       description: "Explore Venus, a celestial marvel with scorching atmosphere, sulfuric acid clouds, and mysterious surface. Witness its unique day-night cycle and swirling cloud cover on a cosmic journey to uncover its enchanting enigma.",
       color_map: "venus.jpg",
@@ -423,7 +431,7 @@ function App() {
       ],
       size: "69,911 km",
       speed: "13.07 km/s",
-      distance_to_closest_star: "149.49 million km",
+      distance_to_closest_star: "149.49M km",
       average_surface_temperature: "-145℃",
       description: " Explore the grandeur of Jupiter, a premier celestial destination. Delight in its immense size, mesmerizing cloud bands, and the legendary Great Red Spot. Discover 79 captivating moons on this extraordinary cosmic journey, unveiling the majesty of our largest solar system planet.",
       color_map: "jupiter.jpg",
@@ -463,7 +471,7 @@ function App() {
       planet_type: "Planet",
       size: "58,232 km",
       speed: "9.7 km/s",
-      distance_to_closest_star: "1.42 billion km",
+      distance_to_closest_star: "1.42B km",
       average_surface_temperature: "-140 °C",
       description: "Saturn, the cosmic destination of unparalleled wonder, where you can explore its stunning rings, diverse moons, and the captivating beauty of the sixth planet from the Sun, embarking on an interstellar journey like no other as you discover the mysteries of the ringed giant.",
       color_map: "saturnmapthumb.jpg",
@@ -515,7 +523,7 @@ function App() {
       planet_type: "Planet",
       size: "6,371 km",
       speed: "29.8 km/s",
-      distance_to_closest_star: "150 million km",
+      distance_to_closest_star: "150M km",
       average_surface_temperature: "15",
       description: "earth desc",
       color_map: "earth.jpg",
@@ -560,7 +568,7 @@ function App() {
       planet_type: "Planet",
       size: "58,232 km",
       speed: "9.7 km/s",
-      distance_to_closest_star: "1.42 billion km",
+      distance_to_closest_star: "1.42B km",
       average_surface_temperature: "-185 °C",
       description: ".",
       color_map: "saturnmapthumb.jpg",
@@ -601,7 +609,7 @@ function App() {
 
   const queryInit = async () => {
     if (query.get("planet")) {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       setFocus(parseInt(query.get("planet")));
       setSingle(parseInt(query.get("planet")));
       await new Promise((resolve) => setTimeout(resolve, 2000));

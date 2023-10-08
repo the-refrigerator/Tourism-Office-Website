@@ -335,10 +335,10 @@ function UI({ setHotspot, hotspotPositions, selectedHotspot, setSelectedHotspot,
                   {selectedHotspot < 0 && (
                     <>
                       <div className="info-tabs-container">
-                        <InfoTab name={"Distance"} text={"215 ly"} />
-                        <InfoTab name={"Speed"} text={"215 km/h"} />
-                        <InfoTab name={"Temperature"} text={"215 °c"} />
-                        <InfoTab name={"Size"} text={"2x Earth"} />
+                        <InfoTab name={"Distance"} text={planets[focus].distance_to_closest_star} />
+                        <InfoTab name={"Speed"} text={planets[focus].speed} />
+                        <InfoTab name={"Temperature"} text={planets[focus].average_surface_temperature} />
+                        <InfoTab name={"Size"} text={planets[focus].size} />
                       </div>
                       <div className="hotspots-tab">
                         <div className="info-subtitle">Hotspots</div>
